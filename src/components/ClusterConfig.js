@@ -60,7 +60,9 @@ export default function ClusterConfig({
       <InputLabel id="demo-simple-select-label">
         Upfront Payment
         <br />
-        <span className={styles.info}>(Upfront payment will give you-10%)</span>
+        <span className={styles.info}>
+          (Upfront payment will give you 10% discount)
+        </span>
       </InputLabel>
       <Select
         className="select"

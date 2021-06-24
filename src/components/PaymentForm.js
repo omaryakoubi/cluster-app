@@ -1,3 +1,4 @@
+import Confirmation from "./Confirmation";
 import Cards from "react-credit-cards";
 import TextField from "@material-ui/core/TextField";
 import { makeStyles } from "@material-ui/core/styles";
@@ -5,20 +6,35 @@ import "react-credit-cards/es/styles-compiled.css";
 
 const useStyles = makeStyles({
   container: {
+    margin: "5% auto ",
     display: "flex",
     alignItems: "center",
-    justifyContent: "center",
-
+    justifyContent: "flex-start",
+    width: "100%",
+    height: "100%",
   },
-
+  cardContainer: {
+    width: "40%",
+  },
   form: {
+    height: "100%",
     display: "flex",
     flexDirection: "column",
-    // alignItems: "space-around",
+    justifyContent: "space-between",
+  },
+  confirmationForm: {
+    backgroundColor: "black",
+    border: "1px solid black !important",
   },
 });
 
-export default function PaymentForm({ subscriptionValues, handleChange }) {
+export default function PaymentForm({
+  subscriptionValues,
+  handleChange,
+  gbPrice,
+  finalPrice,
+}) {
+  const styles = useStyles();
   const {
     userFullName,
     creditCardNumber,
@@ -26,24 +42,27 @@ export default function PaymentForm({ subscriptionValues, handleChange }) {
     creditCardSecurityCode,
   } = subscriptionValues;
 
-  const classes = useStyles();
-
   return (
-    <div className={classes.container} id="paymentForm">
-      <Cards
-        cvc={creditCardSecurityCode}
-        expiry={creditCardExpiryDate}
-        name={userFullName}
-        number={creditCardNumber}
-      />
+    <div className={styles.container} id="paymentForm">
+      <div className={styles.cardContainer}>
+        <Cards
+          cvc={creditCardSecurityCode}
+          expiry={creditCardExpiryDate}
+          name={userFullName}
+          number={creditCardNumber}
+        />
+      </div>
       <br />
-      <form className={classes.form}>
+      <div className={styles.form}>
         <TextField
           id="outlined-input"
           label="Card Number"
           name="cardNumber"
           type="number"
           variant="outlined"
+          inputProps={{
+            maxLength: 10,
+          }}
           onChange={handleChange("creditCardNumber")}
         />
         <TextField
@@ -57,7 +76,8 @@ export default function PaymentForm({ subscriptionValues, handleChange }) {
         <TextField
           id="outlined-input"
           name="expiryDate"
-          type="date"
+          label="Expiration Date"
+          type="number"
           variant="outlined"
           onChange={handleChange("creditCardExpiryDate")}
         />
@@ -70,7 +90,15 @@ export default function PaymentForm({ subscriptionValues, handleChange }) {
           variant="outlined"
           onChange={handleChange("creditCardSecurityCode")}
         />
-      </form>
+      </div>
+      {/* <div className={styles.confirmationForm}>
+        <Confirmation
+          gbPrice={gbPrice}
+          finalPrice={finalPrice}
+          handleChange={handleChange}
+          subscriptionValues={subscriptionValues}
+        />
+      </div> */}
     </div>
   );
 }

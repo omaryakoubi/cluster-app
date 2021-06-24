@@ -9,13 +9,19 @@ const useStyles = makeStyles({
     width: "100%",
   },
 
+  btnsContainer: {
+    display: "flex",
+    justifyContent: "space-between",
+  },
+
   btn: {
     display: "flex",
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "center",
     margin: "auto",
-    padding: 0,
+    padding: "10px 10px",
+    width: "100px",
   },
 
   completed: {
@@ -23,14 +29,15 @@ const useStyles = makeStyles({
   },
 });
 
-export default function HorizontalNonLinearAlternativeLabelStepper({
+export default function StepProgressBar({
   step,
   prevStep,
   nextStep,
+  checkedBox,
+  handleCheckBox,
 }) {
-  let stepTitles = ["Choose your plan", "Payment", "Confirmation"];
+  const stepTitles = ["Choose your plan", "Payment", "Confirmation"];
   const styles = useStyles();
-  console.log("omarrrrrrrrrrrrr", step);
   return (
     <div>
       <Stepper alternativeLabel nonLinear activeStep={step}>
@@ -44,10 +51,20 @@ export default function HorizontalNonLinearAlternativeLabelStepper({
           );
         })}
       </Stepper>
-      <div>
-        <Button disabled={step === 0} onClick={prevStep} className={styles.btn}>
-          Back
-        </Button>
+      <div className={styles.btnsContainer}>
+        {step === 0 ? (
+          <div></div>
+        ) : (
+          <Button
+            variant="outlined"
+            color="black"
+            onClick={prevStep}
+            className={styles.btn}
+          >
+            Back
+          </Button>
+        )}
+
         {step < 2 ? (
           <Button
             variant="contained"
@@ -59,6 +76,7 @@ export default function HorizontalNonLinearAlternativeLabelStepper({
           </Button>
         ) : (
           <Button
+            disabled={!checkedBox}
             variant="contained"
             color="primary"
             //func to post the data goes here

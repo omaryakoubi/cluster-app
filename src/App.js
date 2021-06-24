@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import { useState } from "react";
+import { ToastProvider, useToasts } from "react-toast-notifications";
 import StepProgress from "./components/StepProgressBar";
 import SubscriptionForm from "./components/SubscriptionForm";
 
@@ -6,6 +7,7 @@ import "./App.css";
 
 function App() {
   let [step, setStep] = useState(0);
+
   const [subscriptionValues, setSubscriptionValues] = useState({
     duration: 12,
     gbAmount: 5,
@@ -16,6 +18,8 @@ function App() {
     creditCardExpiryDate: "",
     creditCardSecurityCode: "",
   });
+
+  const [checkedBox, setCheckedBox] = useState(false);
 
   const handleChange = (select) => (e) => {
     if (e.target.name === "upFrontPayment") {
@@ -42,13 +46,16 @@ function App() {
       if (
         subscriptionValues.userFullName.length > 0 &&
         subscriptionValues.creditCardNumber.length === 16 &&
-        // creditCardExpiryDate.length === 4 &&
+        subscriptionValues.creditCardExpiryDate.length === 4 &&
         subscriptionValues.creditCardSecurityCode >= 3 &&
         subscriptionValues.userEmail.includes("@")
       ) {
         setStep((step += 1));
       } else {
-        // toast.success("test", { position: "top-center" });
+        // ToastProvider.addToast("test", {
+        //   appearance: "error",
+        //   autoDismiss: true,
+        // });
         setStep((step += 1));
         console.log("elese block");
       }
@@ -61,6 +68,10 @@ function App() {
     if (step > 0) setStep((step -= 1));
   };
 
+  const handleCheckBox = () => {
+    setCheckedBox(!checkedBox);
+  };
+
   return (
     <div className="App">
       <StepProgress
@@ -68,12 +79,18 @@ function App() {
         prevStep={prevStep}
         nextStep={nextStep}
         subscriptionValues={subscriptionValues}
+        checkedBox={checkedBox}
+        handleCheckBox={handleCheckBox}
       />
-      <SubscriptionForm
-        step={step}
-        handleChange={handleChange}
-        subscriptionValues={subscriptionValues}
-      />
+      <div className="subscriptionForm">
+        <SubscriptionForm
+          step={step}
+          handleChange={handleChange}
+          subscriptionValues={subscriptionValues}
+          checkedBox={checkedBox}
+          handleCheckBox={handleCheckBox}
+        />
+      </div>
     </div>
   );
 }

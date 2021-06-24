@@ -8,6 +8,8 @@ export default function SubscriptionForm({
   step,
   handleChange,
   subscriptionValues,
+  checkedBox,
+  handleCheckBox,
 }) {
   const [cloudStoragePrices, setCloudStoragePrices] = useState({});
 
@@ -73,6 +75,7 @@ export default function SubscriptionForm({
     case 1:
       return (
         <PaymentForm
+          gbPrice={gbPrice}
           finalPrice={finalPrice}
           handleChange={handleChange}
           subscriptionValues={subscriptionValues}
@@ -85,6 +88,8 @@ export default function SubscriptionForm({
           finalPrice={finalPrice}
           handleChange={handleChange}
           subscriptionValues={subscriptionValues}
+          checkedBox={checkedBox}
+          handleCheckBox={handleCheckBox}
         />
       );
   }
