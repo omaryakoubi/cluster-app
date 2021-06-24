@@ -14,17 +14,13 @@ const useStyles = makeStyles({
     height: "100%",
   },
   cardContainer: {
-    width: "40%",
+    width: "42%",
   },
   form: {
     height: "100%",
     display: "flex",
     flexDirection: "column",
     justifyContent: "space-between",
-  },
-  confirmationForm: {
-    backgroundColor: "black",
-    border: "1px solid black !important",
   },
 });
 
@@ -91,14 +87,12 @@ export default function PaymentForm({
           onChange={handleChange("creditCardSecurityCode")}
         />
       </div>
-      {/* <div className={styles.confirmationForm}>
-        <Confirmation
-          gbPrice={gbPrice}
-          finalPrice={finalPrice}
-          handleChange={handleChange}
-          subscriptionValues={subscriptionValues}
-        />
-      </div> */}
+      <Confirmation
+        gbPrice={gbPrice}
+        finalPrice={finalPrice}
+        handleChange={handleChange}
+        subscriptionValues={subscriptionValues}
+      />
     </div>
   );
 }

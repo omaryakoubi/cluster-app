@@ -53,7 +53,7 @@ export default function StepProgressBar({
       </Stepper>
       <div className={styles.btnsContainer}>
         {step === 0 ? (
-          <div></div>
+          null
         ) : (
           <Button
             variant="outlined"

@@ -84,6 +84,7 @@ export default function SubscriptionForm({
     case 2:
       return (
         <Confirmation
+          step={step}
           gbPrice={gbPrice}
           finalPrice={finalPrice}
           handleChange={handleChange}

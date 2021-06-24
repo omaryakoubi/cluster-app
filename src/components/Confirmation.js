@@ -1,4 +1,3 @@
-import { useState } from "react";
 import Card from "@material-ui/core/Card";
 import { makeStyles } from "@material-ui/core/styles";
 import Typography from "@material-ui/core/Typography";
@@ -7,11 +6,12 @@ import Checkbox from "@material-ui/core/Checkbox";
 
 const useStyles = makeStyles({
   container: {
-    //to change
-    position: "absolute",
-    left: "52%",
-    top: "57%",
-    transform: "translate(-50%, -50%)",
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "center",
+    justifyContent: "center",
+    margin: "5% auto",
+    width: "25%",
   },
   root: {
     border: "1px solid #D4D8DC",
@@ -34,6 +34,7 @@ const useStyles = makeStyles({
 });
 
 export default function Confirmation({
+  step,
   gbPrice,
   finalPrice,
   subscriptionValues,
@@ -61,23 +62,23 @@ export default function Confirmation({
             <Typography className={styles.font} variant="body2" component="p">
               Discount: 10%
             </Typography>
-          ) : (
-            <div></div>
-          )}
+          ) : null}
           <br />
           <hr />
           <h3>Total: {finalPrice}$.</h3>
         </CardContent>
       </Card>
-      <div className={styles.termsAndConditions}>
-        <Checkbox
-          checked={checkedBox}
-          onClick={handleCheckBox}
-          color="primary"
-          // inputProps={{ "aria-label": "secondary checkbox" }}
-        />
-        <p>Accept terms & condition to purchase</p>
-      </div>
+      {step === 2 ? (
+        <div className={styles.termsAndConditions}>
+          <Checkbox
+            checked={checkedBox}
+            onClick={handleCheckBox}
+            color="primary"
+            // inputProps={{ "aria-label": "secondary checkbox" }}
+          />
+          <p>Accept terms & conditions to purchase</p>
+        </div>
+      ) : null}
     </div>
   );
 }
