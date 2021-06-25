@@ -1,6 +1,5 @@
 import { useState } from "react";
-import { ToastProvider, useToasts } from "react-toast-notifications";
-import StepProgress from "./components/StepProgressBar";
+import StepProgressBar from "./components/StepProgressBar";
 import SubscriptionForm from "./components/SubscriptionForm";
 
 import "./App.css";
@@ -41,25 +40,7 @@ function App() {
   };
 
   const nextStep = () => {
-    if (step === 1) {
-      console.log("inside 1");
-      if (
-        subscriptionValues.userFullName.length > 0 &&
-        subscriptionValues.creditCardNumber.length === 16 &&
-        subscriptionValues.creditCardExpiryDate.length === 4 &&
-        subscriptionValues.creditCardSecurityCode >= 3 &&
-        subscriptionValues.userEmail.includes("@")
-      ) {
-        setStep((step += 1));
-      } else {
-        // ToastProvider.addToast("test", {
-        //   appearance: "error",
-        //   autoDismiss: true,
-        // });
-        setStep((step += 1));
-        console.log("elese block");
-      }
-    } else {
+    if (step >= 0 && step < 3) {
       setStep((step += 1));
     }
   };
@@ -74,7 +55,7 @@ function App() {
 
   return (
     <div className="App">
-      <StepProgress
+      <StepProgressBar
         step={step}
         prevStep={prevStep}
         nextStep={nextStep}

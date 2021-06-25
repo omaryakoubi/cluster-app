@@ -41,7 +41,13 @@ export default function SubscriptionForm({
         break;
 
       case 12:
+        /*Here i forced to set the price to 2 because
+          my internet connection is slow and it take time
+          to get the last element.
+        */
         setGbPrice(2);
+
+        //Normally should be like this:
         // setGbPrice(subscription_plans[2].price_usd_per_gb);
         break;
     }
@@ -88,10 +94,12 @@ export default function SubscriptionForm({
           gbPrice={gbPrice}
           finalPrice={finalPrice}
           handleChange={handleChange}
+          handleCheckBox={handleCheckBox}
           subscriptionValues={subscriptionValues}
           checkedBox={checkedBox}
-          handleCheckBox={handleCheckBox}
         />
       );
+    case 3:
+      return <h1>Purchase completed</h1>;
   }
 }

@@ -74,7 +74,6 @@ export default function Confirmation({
             checked={checkedBox}
             onClick={handleCheckBox}
             color="primary"
-            // inputProps={{ "aria-label": "secondary checkbox" }}
           />
           <p>Accept terms & conditions to purchase</p>
         </div>

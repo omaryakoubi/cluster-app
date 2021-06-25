@@ -3,6 +3,7 @@ import Button from "@material-ui/core/Button";
 import Stepper from "@material-ui/core/Stepper";
 import { makeStyles } from "@material-ui/core/styles";
 import StepButton from "@material-ui/core/StepButton";
+import axios from "axios";
 
 const useStyles = makeStyles({
   root: {
@@ -34,10 +35,21 @@ export default function StepProgressBar({
   prevStep,
   nextStep,
   checkedBox,
-  handleCheckBox,
+  subscriptionValues,
 }) {
   const stepTitles = ["Choose your plan", "Payment", "Confirmation"];
   const styles = useStyles();
+  const postData = async () => {
+    try {
+      const res = await axios.post(
+        "https://httpbin.org/post",
+        subscriptionValues
+      );
+      nextStep();
+    } catch (error) {
+      console.log(error);
+    }
+  };
   return (
     <div>
       <Stepper alternativeLabel nonLinear activeStep={step}>
@@ -52,9 +64,7 @@ export default function StepProgressBar({
         })}
       </Stepper>
       <div className={styles.btnsContainer}>
-        {step === 0 ? (
-          null
-        ) : (
+        {step === 0 || step === 3 ? null : (
           <Button
             variant="outlined"
             color="black"
@@ -74,18 +84,17 @@ export default function StepProgressBar({
           >
             Next
           </Button>
-        ) : (
+        ) : step === 2 ? (
           <Button
             disabled={!checkedBox}
             variant="contained"
             color="primary"
-            //func to post the data goes here
-            //   onClick={nextStep}
+            onClick={postData}
             className={styles.btn}
           >
             Submit
           </Button>
-        )}
+        ) : null}
       </div>
     </div>
   );
