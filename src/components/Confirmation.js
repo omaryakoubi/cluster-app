@@ -48,7 +48,7 @@ export default function Confirmation({
     <div className={styles.container}>
       <Card className={styles.root} variant="outlined">
         <CardContent>
-          <h2>Confirmation</h2>
+          <h2>Chosen plan</h2>
           <Typography className={styles.font} variant="body2" component="p">
             Subscription duration: {duration} Months.
           </Typography>

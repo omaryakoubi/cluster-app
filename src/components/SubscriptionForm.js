@@ -65,6 +65,7 @@ export default function SubscriptionForm({
 
   useEffect(() => {
     handlePrice();
+    // eslint-disable-next-line
   }, [subscriptionValues, cloudStoragePrices]);
 
   switch (step) {
