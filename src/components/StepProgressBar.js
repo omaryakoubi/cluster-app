@@ -41,7 +41,6 @@ export default function StepProgressBar({
   const [isFormCompleted, setIsFormCompleted] = useState(false);
 
   const handleFormConfirmation = () => {
-    console.log(step === 1);
     if (step === 1) {
       if (
         creditCardNumber.toString().length === 16 &&
@@ -49,7 +48,6 @@ export default function StepProgressBar({
         creditCardExpiryDate.toString().length === 6 &&
         creditCardSecurityCode.toString().length === 3
       ) {
-        console.log("x", !isFormCompleted);
         setIsFormCompleted(!isFormCompleted);
       } else {
         setIsFormCompleted(true);
