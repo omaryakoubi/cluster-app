@@ -76,7 +76,7 @@ export default function PaymentForm({
           onChange={handleChange("userFullName")}
         />
         <label className={styles.inputLabel}>
-          Expiration date should be 4 digits
+          Expiration date should be 6 digits
         </label>
         <TextField
           id="outlined-input"

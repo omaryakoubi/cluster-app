@@ -4,6 +4,7 @@ import Stepper from "@material-ui/core/Stepper";
 import { makeStyles } from "@material-ui/core/styles";
 import StepButton from "@material-ui/core/StepButton";
 import axios from "axios";
+import { useEffect, useState } from "react";
 
 const useStyles = makeStyles({
   root: {
@@ -37,8 +38,43 @@ export default function StepProgressBar({
   checkedBox,
   subscriptionValues,
 }) {
-  const stepTitles = ["Choose your plan", "Payment", "Confirmation"];
+  const [isFormCompleted, setIsFormCompleted] = useState(false);
+
+  const handleFormConfirmation = () => {
+    console.log(step === 1);
+    if (step === 1) {
+      if (
+        creditCardNumber.toString().length === 16 &&
+        userFullName.length !== 0 &&
+        creditCardExpiryDate.toString().length === 6 &&
+        creditCardSecurityCode.toString().length === 3
+      ) {
+        console.log("x", !isFormCompleted);
+        setIsFormCompleted(!isFormCompleted);
+      } else {
+        setIsFormCompleted(true);
+      }
+    } else {
+      setIsFormCompleted(false);
+    }
+  };
+
+  useEffect(() => {
+    handleFormConfirmation();
+    // eslint-disable-next-line
+  }, [step, subscriptionValues]);
+
   const styles = useStyles();
+
+  const stepTitles = ["Choose your plan", "Payment", "Confirmation"];
+
+  const {
+    creditCardNumber,
+    userFullName,
+    creditCardExpiryDate,
+    creditCardSecurityCode,
+  } = subscriptionValues;
+
   const postData = async () => {
     try {
       await axios.post("https://httpbin.org/post", subscriptionValues);
@@ -47,6 +83,7 @@ export default function StepProgressBar({
       console.log(error);
     }
   };
+
   return (
     <div>
       <Stepper alternativeLabel nonLinear activeStep={step}>
@@ -67,9 +104,14 @@ export default function StepProgressBar({
           </Button>
         )}
 
+        {/* {
+          ? (disabled = false)
+          : (disabled = true)} */}
+
         {step < 2 ? (
           <Button
             variant="contained"
+            disabled={isFormCompleted}
             color="primary"
             onClick={nextStep}
             className={styles.btn}

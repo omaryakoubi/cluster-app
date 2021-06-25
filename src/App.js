@@ -1,7 +1,6 @@
 import { useState } from "react";
 import StepProgressBar from "./components/StepProgressBar";
 import SubscriptionForm from "./components/SubscriptionForm";
-
 import "./App.css";
 
 function App() {
@@ -13,9 +12,9 @@ function App() {
     upFrontPayment: false,
     userFullName: "",
     userEmail: "",
-    creditCardNumber: "",
-    creditCardExpiryDate: "",
-    creditCardSecurityCode: "",
+    creditCardNumber: 0,
+    creditCardExpiryDate: 0,
+    creditCardSecurityCode: 0,
   });
 
   const [checkedBox, setCheckedBox] = useState(false);
