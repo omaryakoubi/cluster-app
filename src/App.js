@@ -12,9 +12,9 @@ function App() {
     upFrontPayment: false,
     userFullName: "",
     userEmail: "",
-    creditCardNumber: 0,
-    creditCardExpiryDate: 0,
-    creditCardSecurityCode: 0,
+    creditCardNumber: "",
+    creditCardExpiryDate: "",
+    creditCardSecurityCode: "",
   });
 
   const [checkedBox, setCheckedBox] = useState(false);
