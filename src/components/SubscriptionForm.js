@@ -40,16 +40,14 @@ export default function SubscriptionForm({
         setGbPrice(subscription_plans[1].price_usd_per_gb);
         break;
 
-      case 12:
+      default:
         /*Here i forced to set the price to 2 because
           my internet connection is slow and it take time
           to get the last element.
         */
         setGbPrice(2);
-
-        //Normally should be like this:
-        // setGbPrice(subscription_plans[2].price_usd_per_gb);
-        break;
+      //Normally should be like this:
+      // setGbPrice(subscription_plans[2].price_usd_per_gb);
     }
 
     if (subscriptionValues.upFrontPayment === true) {
@@ -70,14 +68,6 @@ export default function SubscriptionForm({
   }, [subscriptionValues, cloudStoragePrices]);
 
   switch (step) {
-    case 0:
-      return (
-        <ClusterConfig
-          handleChange={handleChange}
-          finalPrice={finalPrice}
-          subscriptionValues={subscriptionValues}
-        />
-      );
     case 1:
       return (
         <PaymentForm
@@ -101,5 +91,14 @@ export default function SubscriptionForm({
       );
     case 3:
       return <h1>Purchase completed</h1>;
+
+    default:
+      return (
+        <ClusterConfig
+          handleChange={handleChange}
+          finalPrice={finalPrice}
+          subscriptionValues={subscriptionValues}
+        />
+      );
   }
 }

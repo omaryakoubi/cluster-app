@@ -41,10 +41,7 @@ export default function StepProgressBar({
   const styles = useStyles();
   const postData = async () => {
     try {
-      const res = await axios.post(
-        "https://httpbin.org/post",
-        subscriptionValues
-      );
+      await axios.post("https://httpbin.org/post", subscriptionValues);
       nextStep();
     } catch (error) {
       console.log(error);
@@ -65,12 +62,7 @@ export default function StepProgressBar({
       </Stepper>
       <div className={styles.btnsContainer}>
         {step === 0 || step === 3 ? null : (
-          <Button
-            variant="outlined"
-            color="black"
-            onClick={prevStep}
-            className={styles.btn}
-          >
+          <Button variant="outlined" onClick={prevStep} className={styles.btn}>
             Back
           </Button>
         )}

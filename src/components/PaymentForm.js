@@ -22,6 +22,12 @@ const useStyles = makeStyles({
     flexDirection: "column",
     justifyContent: "space-between",
   },
+  inputLabel: {
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "flex-start",
+    fontSize: "11px",
+  },
 });
 
 export default function PaymentForm({
@@ -50,15 +56,15 @@ export default function PaymentForm({
       </div>
       <br />
       <div className={styles.form}>
+        <label className={styles.inputLabel}>
+          Card number should be 16 digits
+        </label>
         <TextField
           id="outlined-input"
           label="Card Number"
           name="cardNumber"
           type="number"
           variant="outlined"
-          inputProps={{
-            maxLength: 10,
-          }}
           onChange={handleChange("creditCardNumber")}
         />
         <TextField
@@ -69,6 +75,9 @@ export default function PaymentForm({
           variant="outlined"
           onChange={handleChange("userFullName")}
         />
+        <label className={styles.inputLabel}>
+          Expiration date should be 4 digits
+        </label>
         <TextField
           id="outlined-input"
           name="expiryDate"
@@ -77,12 +86,13 @@ export default function PaymentForm({
           variant="outlined"
           onChange={handleChange("creditCardExpiryDate")}
         />
+        <label className={styles.inputLabel}>CVC should be 3 digits</label>
+
         <TextField
           id="outlined-input"
           label="CVC"
           name="creditCardSecurityCode"
           type="number"
-          maxlength="3"
           variant="outlined"
           onChange={handleChange("creditCardSecurityCode")}
         />
