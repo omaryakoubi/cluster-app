@@ -1,16 +1,13 @@
 import { useState, useEffect } from "react";
+import { useSelector } from "react-redux";
 import axios from "axios";
+
 import ClusterConfig from "./ClusterConfig";
 import Confirmation from "./Confirmation";
 import PaymentForm from "./PaymentForm";
 
-export default function SubscriptionForm({
-  step,
-  handleChange,
-  subscriptionValues,
-  checkedBox,
-  handleCheckBox,
-}) {
+export default function SubscriptionForm({ handleChange, subscriptionValues }) {
+  const step = useSelector((state) => state.stepReducer.step);
   const [cloudStoragePrices, setCloudStoragePrices] = useState({});
 
   let [gbPrice, setGbPrice] = useState(0);
@@ -81,13 +78,10 @@ export default function SubscriptionForm({
     case 2:
       return (
         <Confirmation
-          step={step}
           gbPrice={gbPrice}
           finalPrice={finalPrice}
           handleChange={handleChange}
-          handleCheckBox={handleCheckBox}
           subscriptionValues={subscriptionValues}
-          checkedBox={checkedBox}
         />
       );
     case 3:

@@ -1,10 +1,14 @@
+import { useEffect, useState } from "react";
+import axios from "axios";
+
+import { useDispatch, useSelector } from "react-redux";
+import { incrementStep, decrementStep } from "../store/actions";
+
 import Step from "@material-ui/core/Step";
 import Button from "@material-ui/core/Button";
 import Stepper from "@material-ui/core/Stepper";
 import { makeStyles } from "@material-ui/core/styles";
 import StepButton from "@material-ui/core/StepButton";
-import axios from "axios";
-import { useEffect, useState } from "react";
 
 const useStyles = makeStyles({
   root: {
@@ -31,14 +35,18 @@ const useStyles = makeStyles({
   },
 });
 
-export default function StepProgressBar({
-  step,
-  prevStep,
-  nextStep,
-  checkedBox,
-  subscriptionValues,
-}) {
+export default function StepProgressBar({ subscriptionValues }) {
   const [isFormCompleted, setIsFormCompleted] = useState(false);
+
+  const dispatch = useDispatch();
+  const step = useSelector((state) => state.stepReducer.step);
+  const termsAndConditions = useSelector(
+    (state) => state.termsAndConditionsReducer.termsAndConditions
+  );
+
+  const nextStep = () => dispatch(incrementStep());
+
+  const prevStep = () => dispatch(decrementStep());
 
   const handleFormConfirmation = () => {
     if (step === 1) {
@@ -118,7 +126,7 @@ export default function StepProgressBar({
           </Button>
         ) : step === 2 ? (
           <Button
-            disabled={!checkedBox}
+            disabled={!termsAndConditions}
             variant="contained"
             color="primary"
             onClick={postData}

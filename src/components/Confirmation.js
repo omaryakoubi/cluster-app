@@ -1,3 +1,6 @@
+import { useSelector, useDispatch } from "react-redux";
+import { toggleTermsAndConditions } from "../store/actions";
+
 import Card from "@material-ui/core/Card";
 import { makeStyles } from "@material-ui/core/styles";
 import Typography from "@material-ui/core/Typography";
@@ -34,14 +37,20 @@ const useStyles = makeStyles({
 });
 
 export default function Confirmation({
-  step,
   gbPrice,
   finalPrice,
   subscriptionValues,
-  checkedBox,
-  handleCheckBox,
 }) {
   const styles = useStyles();
+  const dispatch = useDispatch();
+
+  const step = useSelector((state) => state.stepReducer.step);
+  const termsAndConditions = useSelector(
+    (state) => state.termsAndConditionsReducer.termsAndConditions
+  );
+
+  const handleTermsAndConditions = () => dispatch(toggleTermsAndConditions());
+
   const { duration, gbAmount, upFrontPayment } = subscriptionValues;
 
   return (
@@ -71,8 +80,8 @@ export default function Confirmation({
       {step === 2 ? (
         <div className={styles.termsAndConditions}>
           <Checkbox
-            checked={checkedBox}
-            onClick={handleCheckBox}
+            checked={termsAndConditions}
+            onClick={handleTermsAndConditions}
             color="primary"
           />
           <p>Accept terms & conditions to purchase</p>

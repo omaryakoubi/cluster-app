@@ -4,8 +4,6 @@ import SubscriptionForm from "./components/SubscriptionForm";
 import "./App.css";
 
 function App() {
-  let [step, setStep] = useState(0);
-
   const [subscriptionValues, setSubscriptionValues] = useState({
     duration: 12,
     gbAmount: 5,
@@ -38,16 +36,6 @@ function App() {
     }
   };
 
-  const nextStep = () => {
-    if (step >= 0 && step < 3) {
-      setStep((step += 1));
-    }
-  };
-
-  const prevStep = () => {
-    if (step > 0) setStep((step -= 1));
-  };
-
   const handleCheckBox = () => {
     setCheckedBox(!checkedBox);
   };
@@ -55,20 +43,14 @@ function App() {
   return (
     <div className="App">
       <StepProgressBar
-        step={step}
-        prevStep={prevStep}
-        nextStep={nextStep}
         subscriptionValues={subscriptionValues}
         checkedBox={checkedBox}
         handleCheckBox={handleCheckBox}
       />
       <div className="subscriptionForm">
         <SubscriptionForm
-          step={step}
           handleChange={handleChange}
           subscriptionValues={subscriptionValues}
-          checkedBox={checkedBox}
-          handleCheckBox={handleCheckBox}
         />
       </div>
     </div>
